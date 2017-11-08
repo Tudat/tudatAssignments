@@ -1,0 +1,74 @@
+#
+# CMake 
+#
+CMakeCache.txt
+CMakeLists.txt.user
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+#
+# C++
+#
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Data files
+*.dat
+
+#
+# Build and doxygen related
+#
+Documentation/
+doc/doxygen/html/
+doc/doxygen/latex/
+build*/
+bin/
+lib/
+
+#
+# Editor related
+#
+*~
+*#
+.#*
+*.autosave
+*.~?~
+*.save
+
+#
+# Solution files
+#
+
+lroPropagation_Solution1.cpp
+lroPropagation_Solution2.cpp
+lroPropagation_Solution3.cpp
+lroPropagation_Solution4.cpp
