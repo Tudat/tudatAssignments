@@ -63,8 +63,10 @@ int main()
     spice_interface::loadStandardSpiceKernels( );
 
     // Set simulation time settings.
-    const double simulationStartEpoch = tudat::physical_constants::JULIAN_YEAR;
-    const double simulationEndEpoch = simulationStartEpoch + 1.0 * tudat::physical_constants::JULIAN_DAY;
+    double simulationStartEpoch = tudat::physical_constants::JULIAN_YEAR;
+
+    // **** MODIFY FOR AE4867: define list of bodies required for simulation
+    double simulationEndEpoch;// = ...
 
     // Define body settings for simulation.
     std::vector< std::string > bodiesToCreate;
@@ -101,18 +103,21 @@ int main()
 
     // Define propagator settings variables.
     std::vector< std::string > bodiesToPropagate;
+    bodiesToPropagate.push_back( "Delfi" );
     std::vector< std::string > centralBodies;
+    centralBodies.push_back( "Earth" );
 
-    // **** MODIFY FOR AE4867: define body that is propagated/central body
+    // **** MODIFY FOR AE4867: define settings for accelerations acting on Delfi.
 
-    // Define propagation settings.
-    SelectedAccelerationMap accelerationMap;
     std::map< std::string, std::vector< boost::shared_ptr< AccelerationSettings > > > accelerationsOfDelfi;
-    basic_astrodynamics::AccelerationMap accelerationModelMap;
-
-    // **** MODIFY FOR AE4867: define settings for accelerations acting on Delfi, and create acceleration models.
 
 
+
+
+    SelectedAccelerationMap accelerationMap;
+    accelerationMap[ "Delfi" ] = accelerationsOfDelfi;
+    basic_astrodynamics::AccelerationMap accelerationModelMap = createAccelerationModelsMap(
+                bodyMap, accelerationMap, bodiesToPropagate, centralBodies );
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////             CREATE PROPAGATION SETTINGS            ////////////////////////////////////////////
@@ -135,9 +140,13 @@ int main()
                 delfiInitialStateInKeplerianElements, earthGravitationalParameter );
 
 
-    // **** MODIFY FOR AE4867: create propagator and integrator settings.
 
     boost::shared_ptr< TranslationalStatePropagatorSettings< double > > propagatorSettings;
+    propagatorSettings = boost::make_shared< TranslationalStatePropagatorSettings< double > >(
+                centralBodies, accelerationModelMap, bodiesToPropagate, delfiInitialState, simulationEndEpoch );
+
+    // **** MODIFY FOR AE4867: create integrator settings.
+
     boost::shared_ptr< IntegratorSettings< > > integratorSettings;
 
 
