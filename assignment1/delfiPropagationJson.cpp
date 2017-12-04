@@ -54,6 +54,8 @@ int main( )
     // *********************** ITERATE OVER QUESTIONS ************************
     for( unsigned int question = 1; question <= 4; question++ )
     {
+        jsonSimulationManager.resetJsonObject( jsonSimulationManager.getOriginalJsonObject( ) );
+
         unsigned int numberOfCases = 3;
 
         // *********************** ITERATE OVER ALL CASES FOR CURRENT QUESTION ************************
